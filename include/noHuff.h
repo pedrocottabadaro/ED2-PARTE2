@@ -2,10 +2,10 @@
 #define NOHUFF_H
 
 class noHuff{
-    
+
     private:
 	char data; //char do No
-    	int frequencia; //frequencia do No	
+    	int frequencia; //frequencia do No
 	noHuff *esq, *dir;
 
     public:
@@ -19,7 +19,7 @@ class noHuff{
 	void setNoDir(noHuff* novo);
         int getFreq();
 	void setFreq(int freq);
-	char getData();	
+	char getData();
 	void setData(int data);
 };
 

@@ -1,0 +1,9 @@
+----METRICAS HUFFMAN--
+
+
+ N = 1000: 
+*     METRICAS       *            HUFFMAN          
+*     TOTAL BYTES    *1022751			*
+*  TOTAL BYTES COMP  *147			*
+*     RAZAO COMP     *0.00153343			* 
+*     TEMPO TOTAL    *313 ms 			* 

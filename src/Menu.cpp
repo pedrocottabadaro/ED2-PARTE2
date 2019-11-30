@@ -322,11 +322,13 @@ void Menu::exibirMenu()
                             huffman* huff = new huffman(descricao);
                             start = std::chrono::system_clock::now();
                             huff->criaArvore();
+                            huff->chamaCodificador();
                             end = std::chrono::system_clock::now();
                             tempoTotal += std::chrono::duration_cast<std::chrono::milliseconds>(end-start).count();
                             totalBytesComp += huff->getBytesComprimido(); //adiciona o total de bytes do texto apos comprimir
                             razaoCompressao += huff->getTaxaCompressao(); //soma as razoes de compressao.
                             totalBytes+=descricao.length();
+
 
                         }
                     }

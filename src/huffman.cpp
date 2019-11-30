@@ -116,12 +116,12 @@ void huffman::imprimeCodigoHuffman(){
 }
 
 float huffman::getBytesComprimido(){
-    cout<<"Num de Bytes Comprimido"<<endl;
+
     return bytesComprimido;
 }
 
 float huffman::getTaxaCompressao(){
-   cout<<"Taxa de Compressao"<<endl;
+
    taxaCompressao = ((float)taxaCompressao/(float)(texto.size()*8));
    return taxaCompressao;
 }

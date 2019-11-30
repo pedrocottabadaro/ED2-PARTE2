@@ -14,7 +14,7 @@ using namespace std;
 
 noHuff::noHuff(){
     this->frequencia = 0;
-    this->esq = this->dir = NULL;    
+    this->esq = this->dir = NULL;
 }
 
 /*
@@ -57,7 +57,7 @@ noHuff::~noHuff(){
  **********************************
  */
 noHuff* noHuff::getNoEsq(){
-    return this->esq;  
+    return this->esq;
 }
 
 /*

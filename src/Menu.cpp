@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <fstream>
 #include <vector>
-
+#include "huffman.h"
 Menu::Menu()
 {
     //ctor
@@ -167,8 +167,8 @@ void Menu::exibirMenu()
                 vector<registro>::iterator it;
 
                 double tempoTotal = 0;
-                unsigned long int vetTotalBytes[numeroN];
-                unsigned long int vetTotalBytesComp[numeroN];
+                unsigned long int vetorTotalBytes[numeroN];
+                unsigned long int vetorTotalBytesComp[numeroN];
                 double vetorTempoTotal[numeroN];
                 double vetorRazaoCompressao[numeroN];
                 string BytesTexto;
@@ -204,8 +204,8 @@ void Menu::exibirMenu()
                     }
 
 
-                    vetTotalBytes[k] = totalBytes;
-                    vetTotalBytesComp[k] = totalBytesComp;
+                    vetorTotalBytes[k] = totalBytes;
+                    vetorTotalBytesComp[k] = totalBytesComp;
                     vetorRazaoCompressao[k] = razaoCompressao/(float)(vetN[k]);
                     vetorTempoTotal[k] = tempoTotal;
 
@@ -225,8 +225,8 @@ void Menu::exibirMenu()
                     cout<<endl<<endl;
                     cout<<" N = " << vetN[k] << ": "<<endl;
                     cout<<"*     METRICAS       *            LZW           *" <<endl;
-                    cout<<"*     TOTAL BYTES    *"<< vetTotalBytes[k] << "\t\t\t*" <<endl;
-                    cout<<"*  TOTAL BYTES COMP  *"<< vetTotalBytesComp[k] <<"\t\t\t*"<<endl;
+                    cout<<"*     TOTAL BYTES    *"<< vetorTotalBytes[k] << "\t\t\t*" <<endl;
+                    cout<<"*  TOTAL BYTES COMP  *"<< vetorTotalBytesComp[k] <<"\t\t\t*"<<endl;
                     cout<<"*     RAZAO COMP     *"<< vetorRazaoCompressao[k] <<"\t\t\t* "<<endl;
                     cout<<"*     TEMPO TOTAL    *"<< vetorTempoTotal[k] <<" ms \t\t\t* "<<endl;
 
@@ -235,8 +235,8 @@ void Menu::exibirMenu()
                     saida<<endl<<endl;
                     saida<<" N = " << vetN[k] << ": "<<endl;
                     saida<<"*     METRICAS       *            LZW           " <<endl;
-                    saida<<"*     TOTAL BYTES    *"<< vetTotalBytes[k] << "\t\t\t*" <<endl;
-                    saida<<"*  TOTAL BYTES COMP  *"<< vetTotalBytesComp[k] <<"\t\t\t*"<<endl;
+                    saida<<"*     TOTAL BYTES    *"<< vetorTotalBytes[k] << "\t\t\t*" <<endl;
+                    saida<<"*  TOTAL BYTES COMP  *"<< vetorTotalBytesComp[k] <<"\t\t\t*"<<endl;
                     saida<<"*     RAZAO COMP     *"<< vetorRazaoCompressao[k] <<"\t\t\t* "<<endl;
                     saida<<"*     TEMPO TOTAL    *"<< vetorTempoTotal[k] <<" ms \t\t\t* "<<endl;
 
@@ -252,6 +252,130 @@ void Menu::exibirMenu()
 
         case 2: ///Cenario 2
         {
+             int numeroN = 0; //armazena o número de N's do arquivo
+            ifstream infile ("entrada.txt");
+            int i=0;
+
+            while(infile)
+            {
+
+                if(i==0)
+                {
+                    string s;
+                    getline(infile,s);
+                    numeroN = atoi(s.c_str()); //pega o número de N's que estão no arquivo.
+                    break;
+                }
+            }
+
+            int vetN[numeroN]; //cria um vetor para salvar os N's que são quantidades de números que serão testados.
+
+            while(infile)
+            {
+
+                string s;
+                if(i==0)  //nao pega o primeiro elemento, pois ele indica a quantidade de N's.
+                {
+                }
+                else
+                {
+                    if(!getline(infile,s))
+                        break;
+                    vetN[i-1]=atoi(s.c_str()); //pega o valor de N e salva no vetor vetN.
+
+
+                }
+                i++;
+            }
+            infile.close();
+                std::ofstream saida ("saidaHUFFMAN.txt");
+                vector<registro> lista;
+                vector<string> linha;
+                vector<vector<string>> linhas;
+                vector<registro>::iterator it;
+
+                double tempoTotal = 0;
+                unsigned long int vetorTotalBytes[numeroN];
+                unsigned long int vetorTotalBytesComp[numeroN];
+                double vetorTempoTotal[numeroN];
+                double vetorRazaoCompressao[numeroN];
+                string BytesTexto;
+                unsigned long int totalBytes = 0; //total de bytes nao compimidos
+                unsigned long int totalBytesComp = 0; //total de bytes comprimidos
+                double razaoCompressao = 0;
+                std::chrono::time_point<std::chrono::system_clock> start, end;
+                string descricao;
+
+               for(int k=0;k<numeroN;k++)
+               {
+
+
+
+                    leitura(lista,linha, linhas,vetN[k]);
+                    for(it = lista.begin(); it != lista.end(); ++it)
+                    {
+
+                        descricao=it->getDescricao();
+                        if(descricao!="")
+                        {
+
+                            huffman* huff = new huffman(descricao);
+                            start = std::chrono::system_clock::now();
+                            huff->criaArvore();
+                            end = std::chrono::system_clock::now();
+                            tempoTotal += std::chrono::duration_cast<std::chrono::milliseconds>(end-start).count();
+                            totalBytesComp += huff->getBytesComprimido(); //adiciona o total de bytes do texto apos comprimir
+                            razaoCompressao += huff->getTaxaCompressao(); //soma as razoes de compressao.
+                            totalBytes+=descricao.length();
+
+                        }
+                    }
+
+
+                    vetorTotalBytes[k] = totalBytes;
+                    vetorTotalBytesComp[k] = totalBytesComp;
+                    vetorRazaoCompressao[k] = razaoCompressao/(float)(vetN[k]);
+                    vetorTempoTotal[k] = tempoTotal;
+
+                    totalBytes = 0;
+                    totalBytesComp = 0;
+                    razaoCompressao = 0;
+                    tempoTotal = 0;
+
+               }
+
+                cout<<"----METRICAS HUFFMAN --"<<endl;
+
+                saida<<"----METRICAS HUFFMAN--"<<endl;
+                for(int k=0; k<numeroN ; k++)
+                {
+
+                    cout<<endl<<endl;
+                    cout<<" N = " << vetN[k] << ": "<<endl;
+                    cout<<"*     METRICAS       *            HUFFMAN          *" <<endl;
+                    cout<<"*     TOTAL BYTES    *"<< vetorTotalBytes[k] << "\t\t\t*" <<endl;
+                    cout<<"*  TOTAL BYTES COMP  *"<< vetorTotalBytesComp[k] <<"\t\t\t*"<<endl;
+                    cout<<"*     RAZAO COMP     *"<< vetorRazaoCompressao[k] <<"\t\t\t* "<<endl;
+                    cout<<"*     TEMPO TOTAL    *"<< vetorTempoTotal[k] <<" ms \t\t\t* "<<endl;
+
+
+
+                    saida<<endl<<endl;
+                    saida<<" N = " << vetN[k] << ": "<<endl;
+                    saida<<"*     METRICAS       *            HUFFMAN          " <<endl;
+                    saida<<"*     TOTAL BYTES    *"<< vetorTotalBytes[k] << "\t\t\t*" <<endl;
+                    saida<<"*  TOTAL BYTES COMP  *"<< vetorTotalBytesComp[k] <<"\t\t\t*"<<endl;
+                    saida<<"*     RAZAO COMP     *"<< vetorRazaoCompressao[k] <<"\t\t\t* "<<endl;
+                    saida<<"*     TEMPO TOTAL    *"<< vetorTempoTotal[k] <<" ms \t\t\t* "<<endl;
+
+
+
+
+
+                    saida.close();
+
+                }
+            break;
 
         }
 
@@ -271,11 +395,6 @@ void Menu::exibirMenu()
     }
     arquivo.close();
 }
-
-
-
-
-
 
 
 

@@ -35,10 +35,10 @@ void huffman::criaArvore(){
     }
 
 
-    //cria uma fila de prioridade para armazenar os nÃ³s da arvore
+    //cria uma fila de prioridade para armazenar os nós da arvore
     priority_queue<noHuff*, vector<noHuff*>, comp> fp;
 
-    //Cria um nÃ³ folha para cada caractere e adiciona a fila de prioridade
+    //Cria um nó folha para cada caractere e adiciona a fila de prioridade
     for (auto pair:frequencia) {
         noHuff* no = new noHuff(pair.first,pair.second);
         fp.push(no);
@@ -48,17 +48,17 @@ void huffman::criaArvore(){
 
     while (fp.size() > 1)
     {
-        // Remove os nÃ³s com menor frequencia da fila
+        // Remove os nós com menor frequencia da fila
         noHuff *esq = new noHuff();
         esq = fp.top(); fp.pop();
         noHuff *dir = new noHuff();
         dir = fp.top(); fp.pop();
 
 
-        // Cria um nÃ³ interno cuja frequencia Ã© a soma
-        // da frequencia dos dois nÃ³s
-        // e coloca esses nÃ³s como filhos,
-        // adicionando o novo nÃ³ a fila
+        // Cria um nó interno cuja frequencia é a soma
+        // da frequencia dos dois nós
+        // e coloca esses nós como filhos,
+        // adicionando o novo nó a fila
         int soma = esq->getFreq() + dir->getFreq();
         noHuff *no = new noHuff('\0', soma, esq, dir);
         fp.push(no);
@@ -66,7 +66,7 @@ void huffman::criaArvore(){
 
     }
 
-    //coloca o ultimo nÃ³ da fila como raiz
+    //coloca o ultimo nó da fila como raiz
     raiz = fp.top();
 
 }
@@ -95,7 +95,7 @@ void huffman::chamaCodificador(){
 /*
  *******************************************************************
  *                                                                 *
- * FunÃ§ao que codifica o texto de acordo com a arvore ja existente *
+ * Funçao que codifica o texto de acordo com a arvore ja existente *
  *                                                                 *
  *******************************************************************
  */

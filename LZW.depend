@@ -1,0 +1,17 @@
+# depslib dependency file v1.0
+1574543523 source:c:\users\pedro\desktop\lzw\src\lzw.cpp
+	"LZW.h"
+	<vector>
+	<bits/stdc++.h>
+	<string>
+
+1574543459 c:\users\pedro\desktop\lzw\include\lzw.h
+	<vector>
+	<bits/stdc++.h>
+	<string>
+
+1575063884 source:c:\users\pedro\desktop\lzw\main.cpp
+	<iostream>
+	<LZW.h>
+	<string>
+

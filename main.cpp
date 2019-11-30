@@ -6,7 +6,8 @@
 #include <fstream>
 #include "registro.h"
 #include "LZW.h"
-
+#include "huffman.h"
+#include "noHuff.h"
 #include "Menu.h"
 using namespace std;
 

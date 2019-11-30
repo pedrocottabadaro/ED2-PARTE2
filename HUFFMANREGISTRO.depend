@@ -1,0 +1,73 @@
+# depslib dependency file v1.0
+1575155357 source:c:\users\pedro\desktop\huffmanregistro\main.cpp
+	<iostream>
+	<iterator>
+	<vector>
+	<bits/stdc++.h>
+	<stdlib.h>
+	<fstream>
+	"registro.h"
+	"LZW.h"
+	"huffman.h"
+	"noHuff.h"
+	"Menu.h"
+
+1575155357 c:\users\pedro\desktop\huffmanregistro\include\registro.h
+	<iostream>
+	<string.h>
+
+1575155357 c:\users\pedro\desktop\huffmanregistro\include\lzw.h
+	<vector>
+	<bits/stdc++.h>
+	<string>
+
+1575155357 c:\users\pedro\desktop\huffmanregistro\include\huffman.h
+	"noHuff.h"
+	<iostream>
+	<string>
+	<queue>
+	<unordered_map>
+	<vector>
+
+1575155357 c:\users\pedro\desktop\huffmanregistro\include\nohuff.h
+
+1575155357 c:\users\pedro\desktop\huffmanregistro\include\menu.h
+	"registro.h"
+	<bits/stdc++.h>
+	<list>
+	<iterator>
+	<vector>
+
+1575155357 source:c:\users\pedro\desktop\huffmanregistro\src\huffman.cpp
+	"huffman.h"
+	"noHuff.h"
+	<iostream>
+	<queue>
+	<unordered_map>
+	<vector>
+
+1575155357 source:c:\users\pedro\desktop\huffmanregistro\src\lzw.cpp
+	"LZW.h"
+	<vector>
+	<bits/stdc++.h>
+	<string>
+
+1575156732 source:c:\users\pedro\desktop\huffmanregistro\src\menu.cpp
+	"Menu.h"
+	<bits/stdc++.h>
+	<iostream>
+	"LZW.h"
+	<stdlib.h>
+	<fstream>
+	<vector>
+	"huffman.h"
+
+1575155357 source:c:\users\pedro\desktop\huffmanregistro\src\nohuff.cpp
+	"noHuff.h"
+	<stdio.h>
+	<iostream>
+
+1575155357 source:c:\users\pedro\desktop\huffmanregistro\src\registro.cpp
+	<stdlib.h>
+	"registro.h"
+
